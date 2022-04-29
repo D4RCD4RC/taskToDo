@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />   
+    <title>Tareas</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Tasks</h1>
+    </header>
+    <main>
+      <form>
+        <p>
+          <label for="taskInput">New Task</label>
+          <input type="text" id="taskInput" name="task" />
+          
+          <select id="prio" name="prio" onchange="ShowSelected()">           
+            </option>
+            <option  value="normal">Normal</option>
+            <option  value="importante">Important</option>
+          </select>
+        </p>
+        <button type="button" id="add" abbr title="Add"></button>
+        <button type="button" id="clean" abbr title="Clean"></button>
+        <button type="button" id="delete" abbr title="Delete All"></button>
+      </form>
+      <ul></ul>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

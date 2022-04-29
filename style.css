@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  min-height: 100vh;
+  background: url("http://source.unsplash.com/random?write");
+  background-position: center;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+}
+
+header{
+  font-family: 'Audiowide', cursive;
+  background: rgba(0, 0, 0, 0.801);
+  color: white;
+  text-align: center;
+  padding: 2rem;    
+}
+
+form, ul{
+  background: rgba(17, 0, 37, 0.602);
+width: 90%;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 2rem;
+  backdrop-filter: blur(2px);
+  border-radius: 15px;
+  padding: 1rem;
+  color: aliceblue;
+}
+
+form{
+  text-align: center;
+}
+
+form input, select{
+  padding: 0.2rem 0.5rem;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.153);
+  border: 1px solid rgba(0, 0, 0, 0.169);
+  border-radius: 5px;
+}
+
+form input:focus{
+  outline: 1px solid black;
+}
+
+form button{
+  background-color: #ffffffaf;  
+  border: none;
+  margin-top: 1rem;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.294);
+}
+
+#add{
+  background-image: url(./img/add.svg);
+}
+#clean{
+  background-image: url(./img/clean.svg);
+}
+
+#delete{
+  background-image: url(./img/delete.svg);
+}
+
+#add, #clean, #delete{  
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;  
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+#add:hover, #clean:hover, #delete:hover{
+  background-color: rgb(235, 223, 223);
+}
+
+ ul{
+  list-style: none;
+  max-height: calc(100vh - 20rem);
+  overflow: auto;
+}
+
+li{
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.158);
+  font-size: 1.2rem
+}
+
+li:last-of-type{
+  border-bottom: none;
+}
+
+li input{
+  height: 1.2rem;
+  width: 1.2rem;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.404);  
+}
+
+li p{
+  display: inline-block;
+  margin-left: 0.5rem;
+} 
+
+li.done p{
+text-decoration: line-through 3px rgb(255, 0, 0);
+}
+
+/* Barra de escroll */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.209);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.315);
+  border-radius: 10px;
+}
