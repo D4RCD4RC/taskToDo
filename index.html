@@ -11,19 +11,21 @@
     </header>
     <main>
       <form>
-        <p>
-          <label for="taskInput">New Task</label>
-          <input type="text" id="taskInput" name="task" />
-          
-          <select id="prio" name="prio" onchange="ShowSelected()">           
-            </option>
-            <option  value="normal">Normal</option>
-            <option  value="importante">Important</option>
-          </select>
-        </p>
-        <button type="button" id="add" abbr title="Add"></button>
-        <button type="button" id="clean" abbr title="Clean"></button>
-        <button type="button" id="delete" abbr title="Delete All"></button>
+        <fieldset class="datos">          
+            <label for="taskInput">New Task</label>
+            <input type="text" id="taskInput" name="task" />
+            
+            <select id="prio" name="prio" onchange="ShowSelected()">           
+              </option>
+              <option  value="normal">Normal</option>
+              <option  value="importante">Important</option>
+            </select>          
+        </fieldset>
+        <fieldset class="buttons">
+          <button type="button" id="add" abbr title="Add"></button>
+          <button type="button" id="clean" abbr title="Clean"></button>
+          <button type="button" id="delete" abbr title="Delete All"></button>
+        </fieldset>
       </form>
       <ul></ul>
     </main>

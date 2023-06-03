@@ -1,59 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
   min-height: 100vh;
-  background: url("http://source.unsplash.com/random?write");
+  background: url('http://source.unsplash.com/random?write');
   background-position: center;
   background-size: cover;
   font-family: 'Roboto', sans-serif;
 }
 
-header{
+header {
   font-family: 'Audiowide', cursive;
-  background: rgba(0, 0, 0, 0.801);
+  background: rgba(0, 0, 0, 0.737);
   color: white;
   text-align: center;
-  padding: 2rem;    
+  padding: 2rem;
+  font-size: xx-large;
 }
 
-form, ul{
-  background: rgba(17, 0, 37, 0.602);
-width: 90%;
-  max-width: 600px;
-  margin: auto;
-  margin-top: 2rem;
-  backdrop-filter: blur(2px);
-  border-radius: 15px;
-  padding: 1rem;
+.datos, .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: aliceblue;
+  margin: 1rem;
+  border: none;
 }
 
-form{
-  text-align: center;
+.datos label{
+  font-size: 2.5rem;
+  font-weight: bold; 
+  margin: 0 10px; 
 }
 
-form input, select{
-  padding: 0.2rem 0.5rem;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.153);
-  border: 1px solid rgba(0, 0, 0, 0.169);
-  border-radius: 5px;
+.datos input{
+  width: 25rem;
+  height: 3rem;   
+  margin: 0 10px;
+  border: none; 
+  line-height: none;
+  font-size: x-large;
 }
 
-form input:focus{
-  outline: 1px solid black;
+.datos select{
+  width:7rem; 
+  height: 2rem;
+  margin: 0 10px;
+  border: none;
 }
 
-form button{
+.buttons button{
   background-color: #ffffffaf;  
   border: none;
-  margin-top: 1rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.294);
+  margin-right: 2rem;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.294);    
 }
 
 #add{
@@ -71,21 +76,32 @@ form button{
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  width: 3rem;
-  height: 3rem;
+  width: 5rem;
+  height: 5rem;
   cursor: pointer;  
-  border-radius: 10px;
-  margin: 1rem;
+  border-radius: 10px;    
 }
 
-#add:hover, #clean:hover, #delete:hover{
-  background-color: rgb(235, 223, 223);
+form, ul{
+  background: rgba(17, 0, 37, 0.602);
+  width: 90%; 
+  margin: auto;
+  margin-top: 2rem;
+  backdrop-filter: blur(2px);
+  border-radius: 15px;
+  padding: 1rem;
+  color: aliceblue;
 }
 
- ul{
+form{
+  text-align: center;
+}
+
+ul{
   list-style: none;
   max-height: calc(100vh - 20rem);
   overflow: auto;
+  margin-left: 20px;
 }
 
 li{
@@ -99,21 +115,22 @@ li:last-of-type{
 }
 
 li input{
-  height: 1.2rem;
-  width: 1.2rem;
+  height: 2rem;
+  width: 2rem;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.404);  
 }
 
 li p{
   display: inline-block;
   margin-left: 0.5rem;
+  font-size: xx-large;
 } 
 
 li.done p{
-text-decoration: line-through 3px rgb(255, 0, 0);
-}
+  text-decoration: line-through 3px rgb(255, 0, 0);
+  }
 
-/* Barra de escroll */
+  /* Barra de escroll */
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -128,4 +145,34 @@ text-decoration: line-through 3px rgb(255, 0, 0);
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.315);
   border-radius: 10px;
+}
+
+@media screen and (min-width: 768px){
+  header {   
+    font-size: x-large;
+  }
+
+  .datos label{
+    font-size: 1.5rem;   
+  }
+
+  .datos input{
+    width: 25rem;
+    height: 2rem; 
+    font-size: x-large;
+  }
+
+  #add, #clean, #delete{     
+    width: 3.5rem;
+    height: 3.5rem;       
+  }
+
+  form, ul{        
+    margin: 1rem auto;
+    max-width: 800px;  
+  }
+
+  li{
+    font-size: 0.1px;  
+  }
 }

@@ -99,7 +99,7 @@ function saveTasks() {
 
 // Agrego las tareas
 function addTask() {
-  //Si el texto del imput es menos que 3 no se agrega
+  //Si el texto del input es menos que 3 no se agrega
   if (taskInput.value.length <= 3) {
     alert('El texto tiene que tener al menos tres caracteres');
   } else {
