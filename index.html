@@ -11,15 +11,15 @@
     </header>
     <main>
       <form>
-        <fieldset class="datos">          
-            <label for="taskInput">New Task</label>
-            <input type="text" id="taskInput" name="task" />
-            
-            <select id="prio" name="prio" onchange="ShowSelected()">           
-              </option>
-              <option  value="normal">Normal</option>
-              <option  value="importante">Important</option>
-            </select>          
+        <fieldset class="datos">            
+              <label for="taskInput">New Task</label>
+              <section class="components">
+                <input type="text" id="taskInput" name="task" />                 
+                <select id="prio" name="prio" onchange="ShowSelected()">
+                  <option  value="normal">Normal</option>
+                  <option  value="importante">Important</option>
+                </select>
+              </section>
         </fieldset>
         <fieldset class="buttons">
           <button type="button" id="add" abbr title="Add"></button>

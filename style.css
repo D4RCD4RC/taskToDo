@@ -23,46 +23,48 @@ header {
   font-size: xx-large;
 }
 
-.datos, .buttons {
+form .datos label{  
+  display: flex;  
+  font-size: 4rem;
+}
+
+.datos, .buttons{
+  border: none;
+}
+
+.components {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: aliceblue;
-  margin: 1rem;
-  border: none;
+  flex-direction: column;   
+  color: aliceblue;    
+  margin: 10px 0px;
 }
 
-.datos label{
-  font-size: 2.5rem;
-  font-weight: bold; 
-  margin: 0 10px; 
+form .components input{    
+  border: transparent;
+  font-size: 3rem;
+  margin: 2rem 0px;
+  width: 35rem;
+  height: 4rem;  
 }
 
-.datos input{
-  width: 25rem;
-  height: 3rem;   
-  margin: 0 10px;
-  border: none; 
-  line-height: none;
-  font-size: x-large;
-}
-
-.datos select{
-  width:7rem; 
-  height: 2rem;
+form .components select{
+  width:8rem; 
+  height: 3.5rem;
   margin: 0 10px;
   border: none;
+  font-size: 2rem;
 }
 
-.buttons button{
+.buttons button{    
   background-color: #ffffffaf;  
   border: none;
-  margin-right: 2rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.294);    
-}
+  margin-right: 3rem;  
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.294);     */
+  
+} 
 
 #add{
-  background-image: url(./img/add.svg);
+  background-image: url(./img/add.svg);  
 }
 #clean{
   background-image: url(./img/clean.svg);
@@ -75,11 +77,11 @@ header {
 #add, #clean, #delete{  
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-  width: 5rem;
-  height: 5rem;
+  background-size: contain; 
   cursor: pointer;  
-  border-radius: 10px;    
+  border-radius: 10px; 
+  height: 6rem;   
+  width: 6rem;
 }
 
 form, ul{
@@ -93,21 +95,20 @@ form, ul{
   color: aliceblue;
 }
 
-form{
+form{  
   text-align: center;
 }
 
 ul{
   list-style: none;
   max-height: calc(100vh - 20rem);
-  overflow: auto;
-  margin-left: 20px;
+  overflow: auto; 
 }
 
 li{
   padding: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.158);
-  font-size: 1.2rem
+  
 }
 
 li:last-of-type{
@@ -123,7 +124,7 @@ li input{
 li p{
   display: inline-block;
   margin-left: 0.5rem;
-  font-size: xx-large;
+  font-size: 2.5rem;
 } 
 
 li.done p{
@@ -147,32 +148,55 @@ li.done p{
   border-radius: 10px;
 }
 
-@media screen and (min-width: 768px){
+ @media screen and (min-width: 1000px){
   header {   
-    font-size: x-large;
+    font-size:medium;
   }
 
-  .datos label{
-    font-size: 1.5rem;   
+  form .datos label{
+    font-size: 1.2rem;
+    font-weight: bolder;
+    margin: 10px 0px 0px 20px;    
   }
 
-  .datos input{
+  .components {
+    display: flex;
+    flex-direction: row;
+    align-items: center;      
+  }
+
+  form .components input{     
+    font-size:1.2em;
+    margin: 0px 10px;
     width: 25rem;
-    height: 2rem; 
-    font-size: x-large;
+    height: 1.8rem;    
+  }
+  
+  form .components select{
+    width:7rem; 
+    height: 1.8rem;
+    margin: 0 10px;   
+    font-size: 1.5rem;
   }
 
   #add, #clean, #delete{     
-    width: 3.5rem;
-    height: 3.5rem;       
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 10px;       
   }
 
   form, ul{        
-    margin: 1rem auto;
-    max-width: 800px;  
+    margin: 0.5rem auto;
+    max-width: 700px;  
   }
 
-  li{
-    font-size: 0.1px;  
+  li p{    
+    font-size: 1rem;
+  } 
+  
+  li input{
+    height: 1rem;
+    width: 1rem;   
   }
+
 }
