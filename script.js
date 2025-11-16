@@ -1,160 +1,208 @@
 'use strict';
 
-// Seleccionar elementos
+/* ==========================================================================
+   Selección de elementos del DOM
+   ========================================================================== */
 
 const form = document.forms[0];
 const taskInput = form.task;
 
-// crear funcion y variable de fecha
-
-function date() {
-  const date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
-const msg = ' ► Creada el: ';
-let fecha = msg + date();
-
-//Conectar al Select
-
-function ShowSelected() {
-  let combo = document.querySelector('#prio');
-  let selected = combo.options[combo.selectedIndex].value;
-  if (selected === 'normal') {
-    return 'normal';
-  } else {
-    return 'importante';
-  }
-}
-
-function elegirPrioridad() {
-  if (ShowSelected() === 'normal') {
-    return '';
-  } else {
-    return ' 🔴';
-  }
-}
-const prioridad = elegirPrioridad();
-
-//Conectar a los botones
-
 const addButton = document.querySelector('#add');
 const cleanButton = document.querySelector('#clean');
 const emptyButton = document.querySelector('#delete');
+const prioritySelect = document.querySelector('#prio');
 
-//Donde añadire la lista de tareas en el DOM
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  addTask();
+});
+
 
 const taskUl = document.querySelector('ul');
 
-// Array donde almacenare las tareas
-let taskArr = [];
+/* ==========================================================================
+   Utilidades de Fecha y Prioridad
+   ========================================================================== */
 
-// localStorage
-const savedTasks = localStorage.getItem('tasks');
+/**
+ * Devuelve la fecha actual formateada como DD/MM/YYYY
+ */
+const getFormattedDate = () => {
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
 
-// Asigno las tareas al array parseandolas (conviertiendo el string a array)
-if (savedTasks) {
-  taskArr = JSON.parse(savedTasks);
-}
+  return `${day}/${month}/${year}`;
+};
 
-function updateList() {
-  //Selecciono el ul vacio
+/**
+ * Devuelve la prioridad seleccionada
+ * (normal o importante)
+ */
+const getPriority = () => {
+  return prioritySelect.value === 'importante' ? ' 🔴' : '';
+};
+
+/**
+ * Devuelve el texto final que se guardará como tarea
+ */
+const buildTaskText = () => {
+  return `${taskInput.value} ► Creada el: ${getFormattedDate()}${getPriority()}`;
+};
+
+/* ==========================================================================
+   LocalStorage
+   ========================================================================== */
+
+// Cargar tareas almacenadas
+let taskArr = JSON.parse(localStorage.getItem('tasks')) || [];
+
+/**
+ * Guarda el array de tareas en localStorage
+ */
+const saveTasks = () => {
+  localStorage.setItem('tasks', JSON.stringify(taskArr));
+};
+
+/* ==========================================================================
+   Renderizado del DOM
+   ========================================================================== */
+
+/**
+ * Renderiza la lista completa en el DOM
+ */
+const updateList = () => {
   taskUl.innerHTML = '';
 
-  // Actualizo el localStorage
   saveTasks();
 
-  // string de mis li
-  let htmlString = '';
+  const html = taskArr
+    .map(
+      ({ text, done }, index) => `
+      <li class="${done ? 'done' : ''}">
+        <input type="checkbox" data-index="${index}" ${done ? 'checked' : ''}>
+        <p>${text}</p>
+      </li>
+    `
+    )
+    .join('');
 
-  // Recorro las tareas y tomo los datos de las tareas
-  for (let i = 0; i < taskArr.length; i++) {
-    const { text, done } = taskArr[i];
+  taskUl.innerHTML = html;
+};
 
-    //Creo mi li
-    const liString = `<li ${done ? 'class="done"' : ''}>
-        <input type="checkbox" data-index="${i}" ${done ? 'checked' : ''}>
-        <p>${text}</p>        
-      </li>`;
-
-    htmlString += liString;
-  }
-
-  //Añado el string total al innerHTML del ul
-  taskUl.innerHTML = htmlString;
-}
-
-// LLamamos a la función
+// Render inicial
 updateList();
 
-// Guardar las tareas en el localStorage
-function saveTasks() {
-  //Conviert el array en un string JSON
-  const tasksJSON = JSON.stringify(taskArr);
-  //Guardo el string en el localStorage
-  localStorage.setItem('tasks', tasksJSON);
-}
+/* ==========================================================================
+   Acciones de la aplicación (CRUD)
+   ========================================================================== */
 
-// Agrego las tareas
-function addTask() {
-  //Si el texto del input es menos que 3 no se agrega
-  if (taskInput.value.length <= 3) {
-    alert('El texto tiene que tener al menos tres caracteres');
-  } else {
-    const text = taskInput.value + fecha + elegirPrioridad();
-
-    if (text.length >= 3) {
-      //Añado el objeto creado al array
-      taskArr.unshift({
-        text,
-        done: false,
-      });
-      //Limpiamos el input para modificar el objeto taskInput)
-      taskInput.value = '';
-
-      //Actualizamos la li del DOM
-      updateList();
-    }
+/**
+ * Añade una tarea nueva
+ */
+const addTask = () => {
+  if (taskInput.value.trim().length < 3) {
+    return alert('El texto debe tener al menos 3 caracteres');
   }
-}
 
-// funcion paar checkbox
-function toggleTaskDone(e) {
-  if (e.target.matches('input')) {
-    const checkbox = e.target;
-    const { index } = checkbox.dataset;
-    const task = taskArr[index];
-    task.done = !task.done;
+  taskArr.unshift({
+    text: buildTaskText(),
+    done: false,
+  });
 
-    updateList();
-  }
-}
+  taskInput.value = '';
+  updateList();
+};
 
-// Función para limpiar (eliminar las tareas hechas)
-function clean() {
-  const filteredArr = taskArr.filter((task) => !task.done);
-  taskArr = filteredArr;
+/**
+ * Alterna entre completada / no completada
+ */
+const toggleTaskDone = (e) => {
+  if (!e.target.matches('input')) return;
+
+  const index = Number(e.target.dataset.index);
+  taskArr[index].done = !taskArr[index].done;
 
   updateList();
-}
+};
 
-//Función para borrar
-function delet() {
-  const code = prompt('Cuanto es 2+8:');
-  if (code === '10') {
+/**
+ * Elimina únicamente las tareas que estén marcadas como completadas
+ */
+const cleanCompleted = () => {
+  taskArr = taskArr.filter((task) => !task.done);
+  updateList();
+};
+
+/**
+ * Borra todas las tareas si el usuario acierta un pequeño código
+ */
+const deleteAll = () => {
+  const answer = prompt('¿Cuánto es 2 + 8?');
+  if (answer === '10') {
     taskArr = [];
-
     updateList();
   }
-}
+};
 
-// Añado las funciones a los botones
+// Crear contenedor del toggle
+const themeToggleContainer = document.createElement('div');
+themeToggleContainer.classList.add('theme-toggle');
+
+// Crear input checkbox
+const toggleInput = document.createElement('input');
+toggleInput.type = 'checkbox';
+toggleInput.id = 'toggleTheme';
+
+// Crear label
+const toggleLabel = document.createElement('label');
+toggleLabel.classList.add('toggleSwitch');
+toggleLabel.setAttribute('for', 'toggleTheme');
+
+// Crear íconos sol/luna
+const sunIcon = document.createElement('span');
+sunIcon.classList.add('icon','sun');
+sunIcon.textContent = '☀️';
+
+const moonIcon = document.createElement('span');
+moonIcon.classList.add('icon','moon');
+moonIcon.textContent = '🌙';
+
+// Insertar íconos en label
+toggleLabel.appendChild(sunIcon);
+toggleLabel.appendChild(moonIcon);
+
+// Insertar input y label en el contenedor
+themeToggleContainer.appendChild(toggleInput);
+themeToggleContainer.appendChild(toggleLabel);
+
+// Insertar toggle en body (puedes cambiar a header si quieres)
+document.body.appendChild(themeToggleContainer);
+
+// Evento para cambiar tema
+toggleInput.addEventListener('change', () => {
+  document.body.classList.toggle('dark');
+
+  if(document.body.classList.contains('dark')){
+    localStorage.setItem('theme','dark');
+  } else {
+    localStorage.setItem('theme','light');
+  }
+});
+
+// Recuperar tema al cargar página
+window.addEventListener('DOMContentLoaded', () => {
+  if(localStorage.getItem('theme') === 'dark'){
+    document.body.classList.add('dark');
+    toggleInput.checked = true;
+  }
+});
+/* ==========================================================================
+   Eventos
+   ========================================================================== */
+
 addButton.addEventListener('click', addTask);
-cleanButton.addEventListener('click', clean);
-emptyButton.addEventListener('click', delet);
-
-//Funcion de marcar/desmarcar de la lista
-
+cleanButton.addEventListener('click', cleanCompleted);
+emptyButton.addEventListener('click', deleteAll);
 taskUl.addEventListener('click', toggleTaskDone);

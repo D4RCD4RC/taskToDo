@@ -1,202 +1,308 @@
+/* -----------------------------------------------------
+   FUENTES
+----------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto&display=swap');
 
+/* -----------------------------------------------------
+   RESET GENERAL
+----------------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* -----------------------------------------------------
+   FONDO DÍA / NOCHE
+----------------------------------------------------- */
 body {
   min-height: 100vh;
-  background: url('http://source.unsplash.com/random?write');
-  background-position: center;
-  background-size: cover;
   font-family: 'Roboto', sans-serif;
+  transition: background 0.8s ease;
+
+  /* Fondo día */
+  background: linear-gradient(135deg, #d9eaff, #ffffff 40%, #a1c4ff);
+  background-size: cover;
+  background-attachment: fixed;
 }
 
+/* Fondo noche toggled */
+body.dark {
+  background: linear-gradient(135deg, #0a0a1a, #2e004f);
+}
+
+/* -----------------------------------------------------
+   HEADER (con toggle integrado)
+----------------------------------------------------- */
 header {
   font-family: 'Audiowide', cursive;
-  background: rgba(0, 0, 0, 0.737);
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   text-align: center;
   padding: 2rem;
-  font-size: xx-large;
+  font-size: 2rem;
+  position: relative; /* Permite ubicar el toggle dentro del header */
 }
 
-form .datos label{  
-  display: flex;  
-  font-size: 4rem;
+/* Contenedor del toggle dentro del header */
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
-.datos, .buttons{
-  border: none;
+/* Ocultamos el checkbox real */
+.theme-toggle input {
+  display: none;
+}
+
+/* Cuerpo del switch */
+.toggleSwitch {
+  width: 65px;
+  height: 32px;
+  background: #ffffff88;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding: 4px;
+  transition: background 0.4s;
+  backdrop-filter: blur(4px);
+}
+
+/* Iconos */
+.toggleSwitch .icon {
+  position: absolute;
+  font-size: 1.2rem;
+  transition: 0.4s ease;
+  user-select: none;
+}
+
+.toggleSwitch .sun {
+  left: 10px;
+  opacity: 1;
+}
+.toggleSwitch .moon {
+  right: 10px;
+  opacity: 0;
+}
+
+/* Modo oscuro activado */
+#toggleTheme:checked + .toggleSwitch {
+  background: #00000077;
+}
+
+#toggleTheme:checked + .toggleSwitch .sun {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+#toggleTheme:checked + .toggleSwitch .moon {
+  opacity: 1;
+  transform: translateX(10px);
+}
+
+/* -----------------------------------------------------
+   FORMULARIOS Y LISTA (mismo ancho)
+----------------------------------------------------- */
+form, ul {
+  background: rgba(17, 0, 37, 0.6);
+  width: 90%;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  color: aliceblue;
+}
+
+form {
+  text-align: center;
+  
+}
+
+/* -----------------------------------------------------
+   LABEL, INPUT, SELECT (padding unificado)
+----------------------------------------------------- */
+.datos label {
+  display: block;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
 }
 
 .components {
   display: flex;
-  flex-direction: column;   
-  color: aliceblue;    
-  margin: 10px 0px;
-}
-
-form .components input{    
-  border: transparent;
-  font-size: 3rem;
-  margin: 2rem 0px;
-  width: 35rem;
-  height: 4rem;  
-}
-
-form .components select{
-  width:8rem; 
-  height: 3.5rem;
-  margin: 0 10px;
-  border: none;
-  font-size: 2rem;
-}
-
-.buttons button{    
-  background-color: #ffffffaf;  
-  border: none;
-  margin-right: 3rem;  
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.294);     */
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
   
-} 
-
-#add{
-  background-image: url(./img/add.svg);  
-}
-#clean{
-  background-image: url(./img/clean.svg);
 }
 
-#delete{
-  background-image: url(./img/delete.svg);
+.components input {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 1.4rem;  
 }
 
-#add, #clean, #delete{  
+.components select {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  width: 9rem;
+  
+}
+
+/* -----------------------------------------------------
+   BOTONES (padding unificado)
+----------------------------------------------------- */
+.buttons button {
+  padding: 0.8rem;
+  border: none;
+  background: #ffffffb4;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+#add, #clean, #delete {
+  width: 5rem;
+  height: 5rem;
   background-repeat: no-repeat;
+  background-size: contain;
   background-position: center;
-  background-size: contain; 
-  cursor: pointer;  
-  border-radius: 10px; 
-  height: 6rem;   
-  width: 6rem;
+  margin: 0.5rem;
 }
 
-form, ul{
-  background: rgba(17, 0, 37, 0.602);
-  width: 90%; 
-  margin: auto;
-  margin-top: 2rem;
-  backdrop-filter: blur(2px);
-  border-radius: 15px;
-  padding: 1rem;
-  color: aliceblue;
-}
+#add { background-image: url(./img/add.svg); }
+#clean { background-image: url(./img/clean.svg); }
+#delete { background-image: url(./img/delete.svg); }
 
-form{  
-  text-align: center;
-}
-
-ul{
+/* -----------------------------------------------------
+   LISTA DE TAREAS
+----------------------------------------------------- */
+ul {
   list-style: none;
   max-height: calc(100vh - 20rem);
-  overflow: auto; 
+  overflow-y: auto;
 }
 
-li{
+li {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.158);
-  
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
 }
 
-li:last-of-type{
+li:last-of-type {
   border-bottom: none;
 }
 
-li input{
-  height: 2rem;
-  width: 2rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.404);  
+li input {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
-li p{
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-size: 2.5rem;
-} 
+li p {
+  margin-left: 1rem;
+  font-size: 1.8rem;
+}
 
-li.done p{
-  text-decoration: line-through 3px rgb(255, 0, 0);
-  }
+li.done p {
+  text-decoration: line-through 3px red;
+}
 
-  /* Barra de escroll */
+/* -----------------------------------------------------
+   SCROLLBAR
+----------------------------------------------------- */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.209);
-  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.315);
+  background: rgba(0,0,0,0.35);
   border-radius: 10px;
 }
 
- @media screen and (min-width: 1000px){
-  header {   
-    font-size:medium;
+/* -----------------------------------------------------
+   MEDIA QUERIES — RESPONSIVE LIMPIO
+----------------------------------------------------- */
+
+/* Tablets */
+@media (min-width: 600px) {
+
+  header {
+    font-size: 2.2rem;
   }
 
-  form .datos label{
-    font-size: 1.2rem;
-    font-weight: bolder;
-    margin: 10px 0px 0px 20px;    
-  }
-
-  .components {
-    display: flex;
-    flex-direction: row;
-    align-items: center;      
-  }
-
-  form .components input{     
-    font-size:1.2em;
-    margin: 0px 10px;
-    width: 25rem;
-    height: 1.8rem;    
-  }
-  
-  form .components select{
-    width:7rem; 
-    height: 1.8rem;
-    margin: 0 10px;   
+  .datos label {
     font-size: 1.5rem;
   }
 
-  #add, #clean, #delete{     
-    width: 2.5rem;
-    height: 2.5rem;
-    margin: 10px;       
+  .components {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  form, ul{        
-    margin: 0.5rem auto;
-    max-width: 700px;  
+  .components input {
+    width: 60%;
+    font-size: 1.2rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+
+  header {
+    padding: 1.5rem;
+    font-size: 2.2rem;
   }
 
-  li p{    
-    font-size: 1rem;
-  } 
-  
-  li input{
+  .datos label {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+  }
+
+  .components input {
+    width: 25rem;
+    font-size: 1.1rem;
+  }
+
+  .components select {
+    width: 7rem;
+    font-size: 1.1rem;
+  }
+
+  #add, #clean, #delete {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  li p {
+    font-size: 1.2rem;
+  }
+
+  li input {
+    width: 1rem;
     height: 1rem;
-    width: 1rem;   
+  }
+}
+
+/* Monitores grandes */
+@media (min-width: 1400px) {
+
+  form, ul {
+    max-width: 800px;
   }
 
+  header {
+    font-size: 2.4rem;
+  }
 }
